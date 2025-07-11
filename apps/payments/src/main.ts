@@ -7,7 +7,6 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { IoAdapter } from '@nestjs/platform-socket.io';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
@@ -17,21 +16,15 @@ async function bootstrap() {
         brokers: ['localhost:9092']
       },
       consumer: {
-        groupId: 'order-consumer-group'
+        groupId: 'payment-consumer-group'
       }
-      
     }
   });
 
-  const wsApp = await NestFactory.create(AppModule);
-
-  wsApp.useWebSocketAdapter(new IoAdapter(wsApp));
-
   await app.listen();
-  await wsApp.listen(3001);
-
+  
   Logger.log(
-    `🚀 Order service is running...`
+    `🚀 Payment Service running...`
   );
 }
 

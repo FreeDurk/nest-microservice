@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
@@ -6,9 +6,8 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern('order.created')
-  handleOrderCreated(@Payload() order: any) {
-    console.log('Order Process:', order);
-    this.appService.processPayment(order)
+  @MessagePattern('process.payment')
+  handlePaymentProcess(@Payload() order: any) {
+    this.appService.paymentProcess(order);
   }
 }

@@ -52,7 +52,11 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/api-e2e/**/*", "apps/order-e2e/**/*"]
+      "exclude": [
+        "apps/api-e2e/**/*",
+        "apps/order-e2e/**/*",
+        "apps/payments-e2e/**/*"
+      ]
     }
   ],
   "targetDefaults": {
