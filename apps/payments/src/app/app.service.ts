@@ -7,7 +7,6 @@ export class AppService {
 
     paymentProcess(order:any) {
         console.log("Payment process", order);
-        console.log('Payment Succeed')
         this.kafkaClient.emit('payment.succeed', order)
     }
 }

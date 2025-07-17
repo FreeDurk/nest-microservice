@@ -55,7 +55,8 @@
       "exclude": [
         "apps/api-e2e/**/*",
         "apps/order-e2e/**/*",
-        "apps/payments-e2e/**/*"
+        "apps/payments-e2e/**/*",
+        "apps/notifications-e2e/**/*"
       ]
     }
   ],
