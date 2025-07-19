@@ -21,6 +21,18 @@ async function bootstrap() {
     }
   });
 
+  const appRabbit = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+    transport: Transport.RMQ,
+    options: {
+        urls: ['amqp://durk:durk@localhost:5672'],
+        queue: 'payment',
+        queueOptions: {
+          durable: true,
+        },
+      },
+  })
+
+  await appRabbit.listen();
   await app.listen();
   
   Logger.log(

@@ -10,4 +10,9 @@ export class AppController {
   handlePaymentProcess(@Payload() order: any ) {
     this.appService.paymentProcess(order);
   }
+
+  @MessagePattern('process.payment.rabbit')
+  handlePaymentProcessRabbit(@Payload() order: any ) {
+    this.appService.paymentProcessRabbit(order);
+  }
 }

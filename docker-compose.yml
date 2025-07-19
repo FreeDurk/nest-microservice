@@ -1,4 +1,17 @@
 services:
+  rabbitmq:
+    image: bitnami/rabbitmq
+    container_name: rabbitmq_homa
+    ports: 
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_USERNAME: durk
+      RABBITMQ_PASSWORD: durk
+      RABBITMQ_VHOSt: /
+      RABBITMQ_MANAGEMENT_ALLOW_WEB_ACCESS: true
+    volumes:
+      - rabbitmq_data:/bitnami/rabbitmq/mnesia
   zookeeper:
     image: confluentinc/cp-zookeeper:7.2.15
     container_name: zookeeper_homa
@@ -32,4 +45,7 @@ services:
         KAFKA_BROKERCONNECT: kafka:29092
     depends_on:
       - kafka
+
+volumes:
+  rabbitmq_data:
     

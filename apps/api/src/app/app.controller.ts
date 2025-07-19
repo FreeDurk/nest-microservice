@@ -8,9 +8,16 @@ export class AppController {
     
   ) {}
 
-  @Post('orders')
+  @Post('kafka/orders')
   kafkaEntry(@Body() order: any) {
-    this.appService.handleOrder(order)
+    this.appService.handleOrderKafka(order)
     return {success: true , order};
   }
+
+  @Post('rabbit/orders')
+  rabbitEntry(@Body() order: any) {
+    this.appService.handleOrderRabbit(order)
+    return {success: true , order:order};
+  }
+
 }

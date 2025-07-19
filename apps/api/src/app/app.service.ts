@@ -1,13 +1,25 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ClientKafka } from '@nestjs/microservices';
+import { ClientKafka, ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class AppService {
   private logger = new Logger(AppService.name);
-  constructor(@Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka) {}
+  constructor(
+    @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka,
+    @Inject('RABBIT_ORDER_SERVICE') private readonly rabbitClientOrder: ClientProxy,
+    @Inject('RABBIT_NOTIF_SERVICE') private readonly rabbitClientNotif: ClientProxy
+  ) {
 
-  handleOrder(order: any) {
+  }
+
+  handleOrderKafka(order: any) {
+    this.logger.log("Creating Order...");
     this.kafkaClient.emit('order.created', order);
-    this.logger.debug("Order Created",order);
+  }
+
+  handleOrderRabbit(order: any) {
+    this.logger.log("Creating Order...");
+    this.rabbitClientOrder.emit('order.created.rabbit', order);
+    this.rabbitClientNotif.emit('order.created.rabbit',order);
   }
 }

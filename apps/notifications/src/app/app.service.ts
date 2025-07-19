@@ -6,7 +6,7 @@ export class AppService {
     console.log(`Order ${order.orderId} created successfully.`);
   }
 
-  paymentSucced(order: any) {
+  paymentSucceed(order: any) {
     console.log(`Order ${order.orderId} fully paid.`);
   }
 }

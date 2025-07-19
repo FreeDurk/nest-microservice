@@ -20,7 +20,21 @@ async function bootstrap() {
       }
     }
   });
+
+  const rabbitApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+    transport: Transport.RMQ,
+    options: {
+        urls: ['amqp://durk:durk@localhost:5672'],
+        queue: 'notifications',
+        queueOptions: {
+          durable: true,
+        },
+      },
+  });
+
+  await rabbitApp.listen();
   await app.listen();
+
   Logger.log(
     `Notification Service running...`
   );
